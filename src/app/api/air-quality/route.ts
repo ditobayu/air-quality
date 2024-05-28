@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: Request, res: Response) {
   const client = new MongoClient(process.env.MONGODB_URI!);
 
   try {
@@ -28,11 +28,12 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: Request, res: Response) {
   const client = new MongoClient(process.env.MONGODB_URI!);
 
   try {
     const data = await req.json();
+    const dataUpadated = { ...data, timestamp: new Date() };
     console.log(data);
     await client.connect();
     const database = client.db("tis");
