@@ -32,12 +32,12 @@ export async function POST(req: Request, res: Response) {
 
   try {
     const data = await req.json();
-    const dataUpadated = { ...data, timestamp: new Date() };
+    const dataUpdated = { ...data, timestamp: new Date() };
     console.log(data);
     await client.connect();
     const database = client.db("tis");
     const collection = database.collection("air_quality");
-    const result = await collection.insertOne(data);
+    const result = await collection.insertOne(dataUpdated);
 
     return new Response(JSON.stringify(result), {
       status: 201,
