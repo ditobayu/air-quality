@@ -1,5 +1,4 @@
 import { MongoClient } from "mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET(req: Request, res: Response) {
   const client = new MongoClient(process.env.MONGODB_URI!);
