@@ -9,7 +9,13 @@ export async function GET(req: Request, res: Response) {
     const collection = database.collection("air_quality"); // Choose a name for your collection
     const allData = await collection.find({}).toArray();
 
-    return new Response(JSON.stringify(allData), {
+    // Add the is_danger field based on the ppm value
+    const updatedData = allData.map((item) => ({
+      ...item,
+      is_danger: item.ppm > 10,
+    }));
+
+    return new Response(JSON.stringify(updatedData), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
