@@ -9,13 +9,22 @@ export async function GET(req: Request, res: Response) {
     const collection = database.collection("air_quality"); // Choose a name for your collection
     const allData = await collection.find({}).toArray();
 
-    return new Response(JSON.stringify(allData), {
+    const updatedData = allData.map((data) => {
+      const newData = {
+        ...data,
+        is_danger: data.resistance > 4 ? true : false,
+      };
+      return newData;
+    });
+
+    return new Response(JSON.stringify(updatedData), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
       },
     });
   } catch (error) {
+    console.log(error);
     return new Response(JSON.stringify({ message: "Something went wrong!" }), {
       status: 500,
       headers: {
