@@ -53,45 +53,47 @@ export default function Home() {
 
   return (
     <div className="max-w-4xl w-full mx-auto">
-      <div className="mt-20 mb-8">
-        <h1 className="text-2xl font-semibold">Air Quality Data</h1>
-        <p className="text-sm text-gray-500">
-          A list of your recent air quality data.
-        </p>
-      </div>
-      <Table>
-        <TableCaption className="text-right">
-          {data?.length} entries
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Resistance</TableHead>
-            <TableHead>PPM</TableHead>
-            <TableHead>RZERO</TableHead>
-            <TableHead>Is Danger</TableHead>
-            <TableHead className="text-right">Timestamp</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data?.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell className="font-medium">{item.resistance}</TableCell>
-              <TableCell>{item.ppm}</TableCell>
-              <TableCell>{item.rzero}</TableCell>
-              <TableCell
-                className={`${
-                  item.is_danger ? "text-red-500" : "text-green-600"
-                }`}
-              >
-                {item.is_danger ? "DANGER!!" : "SAFE"}
-              </TableCell>
-              <TableCell className="text-right">
-                {formatDate(item.timestamp)}
-              </TableCell>
+      <div className="px-8 ">
+        <div className="mt-20 mb-8">
+          <h1 className="text-2xl font-semibold">Air Quality Data TEST</h1>
+          <p className="text-sm text-gray-500">
+            A list of your recent air quality data.
+          </p>
+        </div>
+        <Table>
+          <TableCaption className="text-right">
+            {data?.length} entries
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Resistance</TableHead>
+              <TableHead className="hidden md:block">PPM</TableHead>
+              <TableHead className="hidden md:block">RZERO</TableHead>
+              <TableHead>Is Danger</TableHead>
+              <TableHead className="text-right">Timestamp</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {data?.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium">{item.resistance}</TableCell>
+                <TableCell className="hidden md:block">{item.ppm}</TableCell>
+                <TableCell className="hidden md:block">{item.rzero}</TableCell>
+                <TableCell
+                  className={`${
+                    item.is_danger ? "text-red-500" : "text-green-600"
+                  }`}
+                >
+                  {item.is_danger ? "DANGER!!" : "SAFE"}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatDate(item.timestamp)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
